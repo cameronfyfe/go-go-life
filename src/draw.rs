@@ -46,9 +46,12 @@ pub fn draw_board() {
 pub fn draw_cell(c: &CellCoord) {
     let ctx = get_ctx();
     ctx.set_fill_style(&JsValue::from_str("#FFFFFF"));
-    let x = (c.x * cell_w) as f64;
-    let y = (c.y * cell_h) as f64;
-    ctx.fill_rect(x, y, cell_w as f64, cell_h as f64);
+    ctx.fill_rect(
+        (c.x * cell_w) as f64,
+        (c.y * cell_h) as f64,
+        cell_w as f64,
+        cell_h as f64
+    );
 }
 
 
