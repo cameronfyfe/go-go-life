@@ -63,7 +63,7 @@ impl Canvas {
         for i in 0..universe.cells.len() {
             for j in 0..universe.cells[i].len() {
                 match universe.cells[i][j] {
-                    cell::State::Alive => self.draw_cell((i as u16, j as u16)),
+                    cell::State::Alive => self.draw_cell(&(i as u16, j as u16)),
                     _ => {}
                 }
             }
@@ -75,9 +75,9 @@ impl Canvas {
         self.ctx.fill_rect(0.0, 0.0, self.board_w as f64, self.board_h as f64);
     }
 
-    pub fn draw_cell(&self, c: (u16, u16)) {
+    pub fn draw_cell(&self, c: &(u16, u16)) {
         self.ctx.set_fill_style(&JsValue::from_str("#FFFFFF"));
-        let (x, y) = c;
+        let (x, y) = *c;
         self.ctx.fill_rect(
             x as f64,
             y as f64,
@@ -88,7 +88,7 @@ impl Canvas {
 
     pub fn draw_cells(&self, cells: &Vec<(u16, u16)>) {
         for cell in cells {
-            self.draw_cell(*cell);
+            self.draw_cell(cell);
         }
     }
 }
