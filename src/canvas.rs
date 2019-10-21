@@ -12,7 +12,7 @@ pub struct Canvas {
     cell_w: u16,
     cell_h: u16,
     cell_color: String,
-    ctx: web_sys::CanvasRenderingContext2d
+    pub ctx: web_sys::CanvasRenderingContext2d
 }
 
 
@@ -70,14 +70,15 @@ impl Canvas {
         }
     }
 
-    pub fn draw_board(&self) {
+    fn draw_board(&self) {
         self.ctx.set_fill_style(&JsValue::from_str("#000000"));
         self.ctx.fill_rect(0.0, 0.0, self.board_w as f64, self.board_h as f64);
     }
 
-    pub fn draw_cell(&self, c: &(u16, u16)) {
+    fn draw_cell(&self, c: &(u16, u16)) {
         self.ctx.set_fill_style(&JsValue::from_str("#FFFFFF"));
         let (x, y) = *c;
+        let (x, y) = (x*self.cell_w, y*self.cell_h);
         self.ctx.fill_rect(
             x as f64,
             y as f64,
@@ -86,7 +87,7 @@ impl Canvas {
         );
     }
 
-    pub fn draw_cells(&self, cells: &Vec<(u16, u16)>) {
+    fn draw_cells(&self, cells: &Vec<(u16, u16)>) {
         for cell in cells {
             self.draw_cell(cell);
         }
